@@ -314,6 +314,16 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.castle.tileGrass2, function (sprite, location) {
+    // Pokemon Red/Blue like battle engine
+    if (randint(0, 10) == 0 && !(inBattle)) {
+        enemyEncounters += 1
+    }
+})
+function Start_Battle () {
+	
+}
+let inBattle = false
 let mySprite: Sprite = null
 tiles.setCurrentTilemap(tilemap`level1`)
 mySprite = sprites.create(img`
@@ -336,3 +346,14 @@ mySprite = sprites.create(img`
     `, SpriteKind.Player)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
+let enemyEncounters = 0
+inBattle = false
+color.clearFadeEffect()
+if (blockSettings.readString("playerSaveData") == "playerData/saveData/" + "progress:N/A" + " enemies encountered:" + enemyEncounters) {
+    blockSettings.writeString("playerSaveData", "playerData/saveData/" + "progress:N/A" + " enemies encountered:" + enemyEncounters)
+}
+forever(function () {
+    blockSettings.writeString("playerlocation", "playerData/location/" + "x:" + mySprite.x + " y:" + mySprite.y)
+    console.logValue("location", blockSettings.readString("playerlocation"))
+    console.logValue("save data", blockSettings.readString("playerSaveData"))
+})
