@@ -278,6 +278,11 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     )
     Direction = "right"
 })
+function Run_player_behavior () {
+    if (statusbar.value == 0) {
+        sprites.destroy(mySprite, effects.disintegrate, 500)
+    }
+}
 controller.up.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, mySprite)
 })
@@ -361,7 +366,7 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 function Run_enemy_behavior () {
     enemy1.follow(mySprite, 50)
     if (enemy1HPBar.value == 0) {
-        sprites.destroy(enemy1, effects.spray, 500)
+        sprites.destroy(enemy1, effects.disintegrate, 500)
     }
 }
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
@@ -415,4 +420,5 @@ forever(function () {
 })
 forever(function () {
     Run_enemy_behavior()
+    Run_player_behavior()
 })
