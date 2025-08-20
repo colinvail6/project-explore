@@ -74,6 +74,9 @@ controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function Start_Battle () {
+    color.FadeToBlack.startScreenEffect(375)
+}
 controller.down.onEvent(ControllerButtonEvent.Released, function () {
     animation.stopAnimation(animation.AnimationTypes.All, mySprite)
 })
@@ -321,9 +324,7 @@ scene.onOverlapTile(SpriteKind.Player, sprites.castle.tileGrass2, function (spri
         Start_Battle()
     }
 })
-function Start_Battle () {
-    color.FadeToBlack.startScreenEffect(375)
-}
+let enemyEncounters = 0
 let inBattle = false
 let mySprite: Sprite = null
 tiles.setCurrentTilemap(tilemap`level1`)
@@ -347,7 +348,8 @@ mySprite = sprites.create(img`
     `, SpriteKind.Player)
 controller.moveSprite(mySprite)
 scene.cameraFollowSprite(mySprite)
-let enemyEncounters = 0
+let statusbar = statusbars.create(20, 4, StatusBarKind.Health)
+statusbar.attachToSprite(mySprite)
 inBattle = false
 color.clearFadeEffect()
 if (blockSettings.readString("playerSaveData") == "playerData/saveData/" + "progress:N/A" + " enemies encountered:" + enemyEncounters) {
