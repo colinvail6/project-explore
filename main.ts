@@ -316,12 +316,13 @@ controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 scene.onOverlapTile(SpriteKind.Player, sprites.castle.tileGrass2, function (sprite, location) {
     // Pokemon Red/Blue like battle engine
-    if (randint(0, 10) == 0 && !(inBattle)) {
+    if (randint(0, 10) == 50 && !(inBattle)) {
         enemyEncounters += 1
+        Start_Battle()
     }
 })
 function Start_Battle () {
-	
+    color.FadeToBlack.startScreenEffect(375)
 }
 let inBattle = false
 let mySprite: Sprite = null
